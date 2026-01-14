@@ -1,6 +1,6 @@
 # SwagOS
 
-A [htpps://voidlinux.org](Void)-based operating system inspired by Nix, Arco linux, Antix and Puppy linux.
+A [Void](https://voidlinux.org)-based operating system inspired by Nix, Arco linux, Antix and Puppy linux.
 For novices to learn linux and powerusers to customize it and make it replicable.
 
 ! SwagOS is NOT an immutable OS !
@@ -13,6 +13,6 @@ For novices to learn linux and powerusers to customize it and make it replicable
 
 
 The purpose of SwagOS is to give you the ability to make your own custom linux distribution on top of Void linux
-Like in [https://antixlinux.com](AntiX) or [https://arcolinux.com](Arco linux), we also aim to provide system configuration tools that don't
+Like in [AntiX](https://antixlinux.com) or [Arco](https://arcolinux.com), we also aim to provide system configuration tools that don't
 depend from a destop environement. Not only it allows users to build their own lightweight desktop experience, this also provide better educational
 content than the usual GUI apps that just does all the magic without showing any of the underlying system operations.
