@@ -63,7 +63,7 @@ fzf() {
   command fzf -e +s --multi --cycle --ansi \
     --bind='Ctrl-X:toggle-preview' \
     --no-hscroll --inline-info \
-    --header='tab to select multiple packages, Ctrl-X for more info on a package' "$@"
+    --header='[Tab] Multi Select - [Ctrl-x] Package Info - [?] Help - [Esc] or [Ctrl-c] Quit - [Enter] Download Selection ' "$@"
 }
 
 install() {
@@ -108,7 +108,8 @@ void() {
   local package_list packagename='{print $2}'
   package_list=$(xbps-query -Rs '' | sort)
   fzf --preview="xbps-query -R {2}" \
-      --query="$1" <<< "$package_list" |
+      --query="$1" <<< "$package_list" \
+      --preview-window=hidden |
     awk "$packagename" |
     install 'sudo xbps-install -S'
 }

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "current script: $0"
+echo "arg count: $#"
+echo "all args: [$@]"

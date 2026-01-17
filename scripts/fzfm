@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Configuration variables with defaults
-MEDIA_OPENER="wslview"
+MEDIA_OPENER="xdg_open"
 TEXT_EDITOR="nvim"
 LIST_COMMAND="eza"
 PREVIEW_COMMAND="bat"
@@ -115,7 +115,7 @@ fzfm() {
             --border-label=" 󱉭 $(pwd)/ " \
             --border-label-pos center \
             --color 'fg:#cdd6f4,fg+:#cdd6f4,bg+:#313244,border:#a5aac3,pointer:#cba6f7,label:#cdd6f4' \
-						--bind "left:pos(1)+accept" \
+            --bind "left:pos(1)+accept" \
             --bind "right:accept" \
             --bind "enter:accept" \
             --bind "shift-up:preview-up" \

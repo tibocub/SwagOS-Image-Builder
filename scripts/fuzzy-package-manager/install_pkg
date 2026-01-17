@@ -109,6 +109,7 @@ void() {
   package_list=$(xbps-query -Rs '' | sort)
   fzf --preview="xbps-query -R {2}" \
       --query="$1" <<< "$package_list" |
+      --preview-window=hidden
     awk "$packagename" |
     install 'sudo xbps-install -S'
 }
