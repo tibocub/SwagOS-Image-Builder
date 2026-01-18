@@ -1,0 +1,21 @@
+#!/bin/sh
+
+progress_bar() {
+  current=$1
+  total=$2
+
+  # Avoid division by 0
+  [ "$total" -eq 0 ] && return
+
+  bar_width=45
+
+  progress=$(( current * 100 / total ))
+  done=$(( progress * bar_width / 100 ))
+  left=$(( bar_width - done ))
+
+  done_bar=$(printf "%${done}s" | tr ' ' '#')
+  left_bar=$(printf "%${left}s" | tr ' ' '-')
+
+  printf '\rProgress : [%s%s] [%d/%d] ' "$done_bar" "$left_bar" "$current" "$total"
+}
+

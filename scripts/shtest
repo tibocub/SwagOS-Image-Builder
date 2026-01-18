@@ -1,5 +1,15 @@
 #!/bin/sh
 
-echo "current script: $0"
-echo "arg count: $#"
-echo "all args: [$@]"
+. $HOME/scripts/lib/progress_bar
+
+total=20
+i=0
+
+while [ "$i" -le "$total" ]; do
+  progress_bar "$i" "$total"
+  i=$((i + 1))
+  sleep 0.02
+done
+
+echo
+echo "\nDone"

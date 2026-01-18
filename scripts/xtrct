@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+#  TODO:
+#  - show planned operations and wait for [y/N] confirmation unless -y given
+#  - -r raw option -- don't create new folder for each archive
+#  - auto detect if last argument is destination
+
+. $HOME/scripts/lib/progress_bar
+
+esc='\033'
+reset="${esc}[0m"
+red="${esc}[31m"
+green="${esc}[32m"
+blue="${esc}[34m"
+
+OUTPUT=$PWD
+ARGS="$@"
+
+USAGE="
+Usage:\n
+  xtrct file.tar.gz file2.rar 'file 3.tar.xz' ...\n
+  Pass to xtrct as many files as you want\n"
+SUPPORTED="
+Supported programs and formats:\n
+  tar            >  .tar .bz2 .tar.gz .tbz2 .tbgz .tar.xz .tar.lzma
+  unrar          >  .rar
+  gunzip         >  .gz
+  unzip          >  .zip
+  uncompress     >  .tar.bz2
+  7z             >  .7z
+  xz || lzma     >  .lzma
+  lz4            >  .lz4\n"
+HELP="$USAGE
+Extractor (ex)\n
+  Extract one or many archives in a single command
+  For the lazy ones who don't want to learn all the cli compression programs
+  Suppurts different formats in a single command
+  If a single existing directory is given as the last argument, it will be used as the output dir for all archives
+  
+  Options:
+  -h Display this page
+  
+  Examples:
+  xtrct files.tar.gz files2.zip               # extract files.tar.gz into new directory \$PWD/files
+  xtrct files.tar.gz files2.zip ~/Documents   # extract all archives content in ~/Documents/ (no new directories)
+  $SUPPORTED"
+
+if [ "$#" -eq 0 ] ; then
+  printf "$USAGE"
+  echo "xtrct -h to see more"
+  exit 1
+fi
+
+while getopts "hd" OPTION; do
+  case $OPTION in
+    h) printf "$HELP"; exit 1 ;;
+    d) OUTPUT=$NF ; echo "$NF" ;;
+  esac
+done
+
+for archive in "$@" ; do
+  if [ -f $archive ] ; then
+    echo "extracting '$archive'..."
+    echo
+    case $archive in
+      *.tar.bz2)   tar xjf $archive -C $OUTPUT ;;
+      *.tar.gz)    tar xzf $archive -C $OUTPUT ;;
+      *.bz2)       bunzip2 $archive $OUTPUT ;;
+      *.rar)       unrar x $archive $OUTPUT ;;
+      *.gz)        gunzip  $archive $OUTPUT ;;
+      *.tar)       tar xf  $archive -C $OUTPUT ;;
+      *.tbz2)      tar xjf $archive -C $OUTPUT ;;
+      *.tbgz)      tar xzf $archive -C $OUTPUT ;;
+      *.zip)       unzip   $archive $OUTPUT ;;
+      *.tar.bz2)   uncompress $archive $OUTPUT ;;
+      *.7z)        7z x $archive $OUTPUT ;;
+      *.tar.xz)    tar xf $archive -C $OUTPUT ;;
+      *.tar.lzma)  tar --lzma -xvf $archive -C $OUTPUT ;;
+      *.lzma)      lzma -d $archive $OUTPUT || unlzma $archive $OUTPUT ;;
+      *.lz4)       lz4 -d $archive $OUTPUT ;;
+      *)           echo "$red xtrct cannot process '$archive'$reset" ;;
+    esac
+  else
+    echo "$red$archive is not a valid file$reset"
+    printf "$SUPPORTED"
+  fi
+done
