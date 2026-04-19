@@ -5,7 +5,7 @@
 #  - -r raw option -- don't create new folder for each archive
 #  - auto detect if last argument is destination
 
-. $HOME/scripts/lib/progress_bar
+#. $HOME/scripts/lib/progress_bar
 
 esc='\033'
 reset="${esc}[0m"
@@ -60,7 +60,7 @@ done
 
 for archive in "$@" ; do
   if [ -f $archive ] ; then
-    echo "extracting '$archive'..."
+    echo "extracting '$archive' to '$OUTPUT'"
     echo
     case $archive in
       *.tar.bz2)   tar xjf $archive -C $OUTPUT ;;
