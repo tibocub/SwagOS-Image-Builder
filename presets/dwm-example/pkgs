@@ -1,0 +1,15 @@
+git
+make
+gcc
+xorg-server
+xorg-server-common
+libX11
+libX11-devel
+libXft
+libXft-devel
+libXinerama
+libXinerama-devel
+freetype2
+freetype-devel
+fontconfig
+fontconfig-devel

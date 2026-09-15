@@ -1,0 +1,7 @@
+-b base-system
+--
+-k "en"
+-i "lz4"
+-l "en_US.UTF-8"
+-T "\$wag_OS"
+-o Swag_OS-x86_64-glibc.iso

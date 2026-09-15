@@ -1,0 +1,7 @@
+neovim
+tree-sitter
+tree-sitter-cli
+lua51
+LuaJIT
+luarocks-lua51
+ripgrep

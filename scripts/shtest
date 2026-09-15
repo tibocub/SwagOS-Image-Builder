@@ -2,7 +2,7 @@
 
 . $HOME/scripts/lib/progress_bar
 
-total=20
+total=50
 i=0
 
 while [ "$i" -le "$total" ]; do
